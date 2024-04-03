@@ -1,4 +1,4 @@
-import 'package:app_finance_flutter/telas/home_page.dart';
+import 'package:app_finance_flutter/telas/inicial_page.dart';
 import 'package:flutter/material.dart';
 
 void main(){
@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: const HomePage(),
+      home: const InicialPage(),
       theme: ThemeData().copyWith(
           colorScheme: ThemeData().colorScheme.copyWith(
                 primary: Colors.blue,
