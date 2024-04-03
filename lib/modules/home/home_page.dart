@@ -1,3 +1,4 @@
+import 'package:app_finance_flutter/modules/home/adicionar.dart';
 import 'package:app_finance_flutter/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -12,6 +13,14 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => Navigator.push(
+          context,
+          MaterialPageRoute<void>(
+            builder: (BuildContext context) => const AdicionarItem(),
+          ),
+        ),
+      ),
       body: Column(
         children: [
           Stack(
