@@ -1,6 +1,6 @@
-import 'package:app_finance_flutter/telas/despesa_resumo.dart';
-import 'package:app_finance_flutter/telas/home_page.dart';
-import 'package:app_finance_flutter/telas/receitas_resumo.dart';
+import 'package:app_finance_flutter/modules/resumos/despesa.dart';
+import 'package:app_finance_flutter/modules/home/home_page.dart';
+import 'package:app_finance_flutter/modules/resumos/receitas.dart';
 import 'package:app_finance_flutter/utils/app_colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

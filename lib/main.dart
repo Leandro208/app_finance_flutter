@@ -1,7 +1,7 @@
-import 'package:app_finance_flutter/telas/inicial_page.dart';
+import 'package:app_finance_flutter/modules/home/inicial_page.dart';
 import 'package:flutter/material.dart';
 
-void main(){
+void main() {
   runApp(const MyApp());
 }
 
@@ -13,11 +13,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: const InicialPage(),
       theme: ThemeData().copyWith(
-          colorScheme: ThemeData().colorScheme.copyWith(
-                primary: Colors.blue,
-                secondary: Colors.amber,
-              )),
-              debugShowCheckedModeBanner: false,
+        colorScheme: ThemeData().colorScheme.copyWith(
+              primary: Colors.blue,
+              secondary: Colors.amber,
+            ),
+      ),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
