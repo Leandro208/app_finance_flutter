@@ -1,7 +1,6 @@
+import 'package:app_finance_flutter/modules/home/adicionar.dart';
 import 'package:app_finance_flutter/utils/app_colors.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -14,6 +13,14 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => Navigator.push(
+          context,
+          MaterialPageRoute<void>(
+            builder: (BuildContext context) => const AdicionarItem(),
+          ),
+        ),
+      ),
       body: Column(
         children: [
           Stack(
@@ -80,17 +87,26 @@ class _HomePageState extends State<HomePage> {
             child: Container(
               child: Column(
                 children: [
-                 Padding(
-                   padding: const EdgeInsets.all(20.0),
-                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                    Text('Movimentações', style: TextStyle(color: Colors.grey),),
-                    Icon(Icons.sort, color: Colors.grey,)
-                   ],),
-                 ),
-                  exibirMovimentacao(Icons.arrow_upward_rounded, Colors.green, 'Venda', 200),
-                  exibirMovimentacao(Icons.arrow_downward_rounded, Colors.red, 'Internet', -500)
+                  const Padding(
+                    padding: EdgeInsets.all(20.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Movimentações',
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                        Icon(
+                          Icons.sort,
+                          color: Colors.grey,
+                        )
+                      ],
+                    ),
+                  ),
+                  exibirMovimentacao(
+                      Icons.arrow_upward_rounded, Colors.green, 'Venda', 200),
+                  exibirMovimentacao(Icons.arrow_downward_rounded, Colors.red,
+                      'Internet', -500)
                 ],
               ),
             ),
@@ -101,7 +117,8 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-ListTile exibirMovimentacao(IconData icone, Color cor, String descricao, double valor) {
+ListTile exibirMovimentacao(
+    IconData icone, Color cor, String descricao, double valor) {
   return ListTile(
     leading: Icon(icone),
     title: Text(descricao),
