@@ -8,9 +8,9 @@ enum TipoMovimentacao{
   Color get cor{
     switch (this) {
       case TipoMovimentacao.DESPESA:
-        return AppColors.despesaColor;
+        return AppColors.despesaColorPrimary;
       case TipoMovimentacao.RECEITA:
-      return AppColors.receitaColor;
+      return AppColors.receitaColorPrimary;
     }
   }
 
