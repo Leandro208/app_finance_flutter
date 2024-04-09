@@ -8,12 +8,11 @@ import 'package:intl/intl.dart';
 class ListaMovimentacoes extends StatelessWidget {
   final Function(Movimentacao) callback;
   final List<Movimentacao> movimentacoes;
-  final bool limitarQntHomePage;
+
   const ListaMovimentacoes({
     super.key,
     required this.movimentacoes,
     required this.callback,
-    required this.limitarQntHomePage,
   });
 
   @override
@@ -21,11 +20,7 @@ class ListaMovimentacoes extends StatelessWidget {
     return SizedBox(
       height: 200,
       child: ListView.builder(
-        itemCount: limitarQntHomePage
-            ? movimentacoes.length > 5
-                ? 5
-                : movimentacoes.length
-            : movimentacoes.length,
+        itemCount: movimentacoes.length,
         itemBuilder: (context, index) {
           final movimentacao = movimentacoes[index];
           return GestureDetector(

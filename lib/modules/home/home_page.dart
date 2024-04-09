@@ -136,7 +136,7 @@ class _HomePageState extends State<HomePage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Movimentações Recentes',
+                  'Movimentações',
                   style: TextStyle(color: Colors.grey),
                 ),
                 Icon(
@@ -150,7 +150,6 @@ class _HomePageState extends State<HomePage> {
             child: ListaMovimentacoes(
               movimentacoes: movimentacoes,
               callback: removerMovimentacoes,
-              limitarQntHomePage: true,
             ),
           )
         ],
