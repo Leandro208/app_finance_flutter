@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:app_finance_flutter/model/movimentacao.dart';
 import 'package:app_finance_flutter/modules/components/timeline.dart';
 import 'package:app_finance_flutter/utils/app_colors.dart';

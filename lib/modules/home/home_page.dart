@@ -1,4 +1,5 @@
 import 'package:app_finance_flutter/model/movimentacao.dart';
+import 'package:app_finance_flutter/model/tipo_movimentacao.dart';
 import 'package:app_finance_flutter/modules/components/lista_movimentacoes.dart';
 import 'package:app_finance_flutter/modules/home/adicionar.dart';
 import 'package:app_finance_flutter/utils/app_colors.dart';
@@ -15,27 +16,23 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   double total = 0;
+  late Color corTotal;
   @override
   void initState() {
-    for (var e in widget.movimentacoes) {
-      total += e.valor;
-    }
+    total = calcularTotal(widget.movimentacoes);
+    corTotal = getCorTotal(total);
     super.initState();
   }
 
   void adicionarMovimentacoes(Movimentacao movimentacao) => setState(() {
-        total = 0;
         widget.movimentacoes.add(movimentacao);
-        for (var e in widget.movimentacoes) {
-          total += e.valor;
-        }
+        total = calcularTotal(widget.movimentacoes);
+        corTotal = getCorTotal(total);
       });
   void removerMovimentacoes(Movimentacao movimentacao) => setState(() {
-        total = 0;
         widget.movimentacoes.remove(movimentacao);
-        for (var e in widget.movimentacoes) {
-          total += e.valor;
-        }
+        total = calcularTotal(widget.movimentacoes);
+        corTotal = getCorTotal(total);
       });
 
   void editarMovimentacao(Movimentacao movimentacao) => setState(() {
@@ -85,8 +82,8 @@ class _HomePageState extends State<HomePage> {
                             children: [
                               Text(
                                 "R\$ ${total.toStringAsFixed(2)}",
-                                style: const TextStyle(
-                                    color: Colors.white,
+                                style: TextStyle(
+                                    color: corTotal,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 30),
                               ),
@@ -159,5 +156,27 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
     );
+  }
+}
+
+double calcularTotal(List<Movimentacao> lista) {
+  double total = 0;
+  for (var e in lista) {
+    if (e.tipo == TipoMovimentacao.RECEITA) {
+      total += e.valor;
+    } else {
+      total -= e.valor;
+    }
+  }
+  return total;
+}
+
+Color getCorTotal(double valor) {
+  if (valor > 0) {
+    return Colors.green;
+  } else if (valor < 0) {
+    return Colors.red;
+  } else {
+    return Colors.white;
   }
 }
