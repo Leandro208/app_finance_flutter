@@ -1,55 +1,24 @@
 import 'package:app_finance_flutter/model/movimentacao.dart';
-import 'package:app_finance_flutter/model/tipo_movimentacao.dart';
 import 'package:app_finance_flutter/modules/components/lista_movimentacoes.dart';
 import 'package:app_finance_flutter/modules/home/adicionar.dart';
 import 'package:app_finance_flutter/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  final List<Movimentacao> movimentacoes;
+  const HomePage({super.key, required this.movimentacoes});
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  List<Movimentacao> movimentacoes = [
-    Movimentacao(
-        titulo: 'Venda',
-        valor: 528.12,
-        data: DateTime.now(),
-        tipo: TipoMovimentacao.RECEITA),
-    Movimentacao(
-        titulo: 'Internet',
-        valor: 129.02,
-        data: DateTime.now(),
-        tipo: TipoMovimentacao.DESPESA),
-    Movimentacao(
-        titulo: 'Internet',
-        valor: 129.02,
-        data: DateTime.now(),
-        tipo: TipoMovimentacao.DESPESA),
-    Movimentacao(
-        titulo: 'Venda',
-        valor: 528.12,
-        data: DateTime.now(),
-        tipo: TipoMovimentacao.RECEITA),
-    Movimentacao(
-        titulo: 'Internet',
-        valor: 129.02,
-        data: DateTime.now(),
-        tipo: TipoMovimentacao.DESPESA),
-    Movimentacao(
-        titulo: 'Despesa Teste',
-        valor: 528.12,
-        data: DateTime.now(),
-        tipo: TipoMovimentacao.DESPESA)
-  ];
+  
   void adicionarMovimentacoes(Movimentacao movimentacao) => setState(() {
-        movimentacoes.add(movimentacao);
+        widget.movimentacoes.add(movimentacao);
       });
   void removerMovimentacoes(Movimentacao movimentacao) => setState(() {
-        movimentacoes.remove(movimentacao);
+        widget.movimentacoes.remove(movimentacao);
       });
 
   @override
@@ -148,7 +117,7 @@ class _HomePageState extends State<HomePage> {
           ),
           Expanded(
             child: ListaMovimentacoes(
-              movimentacoes: movimentacoes,
+              movimentacoes: widget.movimentacoes,
               callback: removerMovimentacoes,
             ),
           )
