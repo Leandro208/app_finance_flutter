@@ -40,10 +40,8 @@ class _HomePageState extends State<HomePage> {
             .indexWhere((element) => element.id == movimentacao.id);
         if (indexMovimentacao == -1) return;
         widget.movimentacoes[indexMovimentacao] = movimentacao;
-        total = 0;
-        for (var e in widget.movimentacoes) {
-          total += e.valor;
-        }
+        total = calcularTotal(widget.movimentacoes);
+        corTotal = getCorTotal(total);
       });
 
   @override
