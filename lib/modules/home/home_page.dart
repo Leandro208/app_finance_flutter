@@ -13,50 +13,49 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final List<Movimentacao> _movimentacoes = [
+  List<Movimentacao> movimentacoes = [
     Movimentacao(
-        descricao: 'Venda',
+        titulo: 'Venda',
         valor: 528.12,
         data: DateTime.now(),
         tipo: TipoMovimentacao.RECEITA),
     Movimentacao(
-        descricao: 'Internet',
+        titulo: 'Internet',
         valor: 129.02,
         data: DateTime.now(),
         tipo: TipoMovimentacao.DESPESA),
     Movimentacao(
-        descricao: 'Internet',
+        titulo: 'Internet',
         valor: 129.02,
         data: DateTime.now(),
         tipo: TipoMovimentacao.DESPESA),
     Movimentacao(
-        descricao: 'Venda',
+        titulo: 'Venda',
         valor: 528.12,
         data: DateTime.now(),
         tipo: TipoMovimentacao.RECEITA),
     Movimentacao(
-        descricao: 'Internet',
+        titulo: 'Internet',
         valor: 129.02,
         data: DateTime.now(),
         tipo: TipoMovimentacao.DESPESA),
     Movimentacao(
-        descricao: 'Despesa Teste',
+        titulo: 'Despesa Teste',
         valor: 528.12,
         data: DateTime.now(),
         tipo: TipoMovimentacao.DESPESA)
   ];
+  void adicionarMovimentacoes(Movimentacao movimentacao) => setState(() {
+        movimentacoes.add(movimentacao);
+      });
+  void removerMovimentacoes(Movimentacao movimentacao) => setState(() {
+        movimentacoes.remove(movimentacao);
+      });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => Navigator.push(
-          context,
-          MaterialPageRoute<void>(
-            builder: (BuildContext context) => const AdicionarItem(),
-          ),
-        ),
-      ),
+      backgroundColor: AppColors.background,
       body: Column(
         children: [
           Stack(
@@ -66,14 +65,14 @@ class _HomePageState extends State<HomePage> {
                   "Finance App",
                   style: TextStyle(color: Colors.white),
                 ),
-                backgroundColor: AppColors.primaryColor,
+                backgroundColor: AppColors.background,
                 toolbarHeight: 150,
               ),
               Align(
                 child: Card(
                   elevation: 3,
-                  color: Colors.white,
-                  shadowColor: AppColors.primaryColor,
+                  color: AppColors.onBackground,
+                  shadowColor: AppColors.purple,
                   margin: const EdgeInsets.fromLTRB(25, 130, 25, 10),
                   child: Container(
                       padding: const EdgeInsets.all(25.0),
@@ -90,7 +89,7 @@ class _HomePageState extends State<HomePage> {
                               const Text(
                                 "R\$ 500,46",
                                 style: TextStyle(
-                                    color: AppColors.primaryColor,
+                                    color: Colors.white,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 30),
                               ),
@@ -98,7 +97,7 @@ class _HomePageState extends State<HomePage> {
                                 width: 40,
                                 height: 40,
                                 decoration: BoxDecoration(
-                                    color: AppColors.primaryColor,
+                                    color: Colors.white,
                                     borderRadius: BorderRadius.circular(50),
                                     boxShadow: const [
                                       BoxShadow(
@@ -111,13 +110,14 @@ class _HomePageState extends State<HomePage> {
                                   icon: const Icon(
                                     Icons.add,
                                     size: 25,
-                                    color: Colors.white,
+                                    color: Colors.black,
                                   ),
                                   onPressed: () => Navigator.push(
                                     context,
                                     MaterialPageRoute<void>(
                                       builder: (BuildContext context) =>
-                                          const AdicionarItem(),
+                                          AdicionarItem(
+                                              callback: adicionarMovimentacoes),
                                     ),
                                   ),
                                 ),
@@ -147,8 +147,11 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           Expanded(
-            child: ListaMovimentacoes(movimentacoes: _movimentacoes)
-          ),
+            child: ListaMovimentacoes(
+              movimentacoes: movimentacoes,
+              callback: removerMovimentacoes,
+            ),
+          )
         ],
       ),
     );

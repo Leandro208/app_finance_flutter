@@ -12,35 +12,34 @@ class DespesasResumo extends StatefulWidget {
 }
 
 class _DespesasResumoState extends State<DespesasResumo> {
-
-final List<Movimentacao> _despesas = [
+  final List<Movimentacao> _despesas = [
     Movimentacao(
-        descricao: 'Internet',
+        titulo: 'Internet',
         valor: 129.02,
         data: DateTime.now(),
         tipo: TipoMovimentacao.DESPESA),
     Movimentacao(
-        descricao: 'Internet',
+        titulo: 'Internet',
         valor: 129.02,
         data: DateTime.now(),
         tipo: TipoMovimentacao.DESPESA),
     Movimentacao(
-        descricao: 'Internet',
+        titulo: 'Internet',
         valor: 129.02,
         data: DateTime.now(),
         tipo: TipoMovimentacao.DESPESA),
     Movimentacao(
-        descricao: 'Despesa Teste',
+        titulo: 'Despesa Teste',
         valor: 528.12,
         data: DateTime.now(),
         tipo: TipoMovimentacao.DESPESA),
-        Movimentacao(
-        descricao: 'Despesa Teste',
+    Movimentacao(
+        titulo: 'Despesa Teste',
         valor: 528.12,
         data: DateTime.now(),
         tipo: TipoMovimentacao.DESPESA),
-        Movimentacao(
-        descricao: 'Despesa Teste',
+    Movimentacao(
+        titulo: 'Despesa Teste',
         valor: 528.12,
         data: DateTime.now(),
         tipo: TipoMovimentacao.DESPESA)
@@ -62,7 +61,10 @@ final List<Movimentacao> _despesas = [
                     fontSize: 30,
                     fontFamily: AutofillHints.streetAddressLine1)),
           ),
-          TimelineMovimentacao(movimentacoes: _despesas, cor: AppColors.despesaColorSecondary,)
+          TimelineMovimentacao(
+            movimentacoes: _despesas,
+            cor: AppColors.despesaColorSecondary,
+          )
         ],
       ),
     );

@@ -13,12 +13,12 @@ class ReceitasResumo extends StatefulWidget {
 class _ReceitasResumoState extends State<ReceitasResumo> {
   final List<Movimentacao> _receitas = [
     Movimentacao(
-        descricao: 'Internet',
+        titulo: 'Internet',
         valor: 129.02,
         data: DateTime.now(),
         tipo: TipoMovimentacao.RECEITA),
     Movimentacao(
-        descricao: 'Internet',
+        titulo: 'Internet',
         valor: 129.02,
         data: DateTime.now(),
         tipo: TipoMovimentacao.RECEITA),
@@ -40,7 +40,10 @@ class _ReceitasResumoState extends State<ReceitasResumo> {
                     fontSize: 30,
                     fontFamily: AutofillHints.streetAddressLine1)),
           ),
-          TimelineMovimentacao(movimentacoes: _receitas, cor: AppColors.receitaColorSecondary,)
+          TimelineMovimentacao(
+            movimentacoes: _receitas,
+            cor: AppColors.receitaColorSecondary,
+          )
         ],
       ),
     );

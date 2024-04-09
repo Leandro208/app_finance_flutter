@@ -1,9 +1,11 @@
-import 'package:app_finance_flutter/utils/themes.dart';
+import 'package:app_finance_flutter/utils/app_colors.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AppBarCustomWidget extends StatefulWidget implements PreferredSizeWidget {
-  const AppBarCustomWidget({super.key});
+  final Function(DateTime) callback;
+  const AppBarCustomWidget({super.key, required this.callback});
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
@@ -12,10 +14,11 @@ class AppBarCustomWidget extends StatefulWidget implements PreferredSizeWidget {
 }
 
 class _AppBarCustomWidgetState extends State<AppBarCustomWidget> {
+  DateTime data = DateTime.now();
   @override
   Widget build(BuildContext context) {
     return AppBar(
-        backgroundColor: Themes.onBackground,
+        backgroundColor: AppColors.onBackground,
         leading: CupertinoButton(
           onPressed: () => Navigator.pop(context),
           padding: EdgeInsets.zero,
@@ -26,26 +29,26 @@ class _AppBarCustomWidgetState extends State<AppBarCustomWidget> {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
-            icon: const Icon(CupertinoIcons.clock, color: Colors.white70),
-          ),
-          IconButton(
-            onPressed: () {},
+            onPressed: () => mostrarData(),
             icon: const Icon(CupertinoIcons.calendar, color: Colors.white70),
           )
         ],
-        title: customRichText('Adicionar novo valor', '3 Apr 2024'));
+        title: customRichText('Adicionar novo valor',
+            '${data.day < 10 ? '0' : ''}${data.day}/${data.month < 10 ? '0' : ''}${data.month}/${data.year}'));
   }
 
   void mostrarData() => showDatePicker(
         context: context,
         initialDate: DateTime.now(),
-        firstDate: DateTime.now(),
+        firstDate: DateTime(1974),
         lastDate: DateTime(2025),
       ).then((pickedDate) {
         if (pickedDate == null) return;
 
-        setState(() {});
+        setState(() {
+          data = pickedDate;
+        });
+        widget.callback(pickedDate);
       });
 
   RichText customRichText(String titulo, String descricao) => RichText(
