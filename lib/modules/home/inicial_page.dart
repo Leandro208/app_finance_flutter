@@ -1,8 +1,7 @@
-import 'package:app_finance_flutter/modules/resumos/despesa.dart';
 import 'package:app_finance_flutter/modules/home/home_page.dart';
+import 'package:app_finance_flutter/modules/resumos/despesa.dart';
 import 'package:app_finance_flutter/modules/resumos/receitas.dart';
 import 'package:app_finance_flutter/utils/app_colors.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class InicialPage extends StatefulWidget {
@@ -13,7 +12,6 @@ class InicialPage extends StatefulWidget {
 }
 
 class _InicialPageState extends State<InicialPage> {
-
   int _selectedIndex = 1;
   bool _showLabels = true;
 
@@ -35,9 +33,12 @@ class _InicialPageState extends State<InicialPage> {
     return Scaffold(
       body: _pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
-        showSelectedLabels: _showLabels, // Mostra o rótulo apenas do item selecionado
+        backgroundColor: AppColors.background,
+
+        showSelectedLabels:
+            _showLabels, // Mostra o rótulo apenas do item selecionado
         showUnselectedLabels: false,
-        items: [
+        items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.remove_circle_outline_rounded),
             label: 'Despesas',
@@ -52,7 +53,8 @@ class _InicialPageState extends State<InicialPage> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: AppColors.secondaryColor,
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Colors.grey,
         onTap: _onItemTapped,
       ),
     );
