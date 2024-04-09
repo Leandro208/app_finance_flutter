@@ -141,6 +141,9 @@ class _AdicionarItemState extends State<AdicionarItem> {
                           setState(() {
                             titulo.clear();
                             quantia.clear();
+                            descricao.clear();
+                            corFundoDespesa = null;
+                            corFundoReceita = null;
                             data = DateTime.now();
                             tipoEscolhido = null;
                           });
