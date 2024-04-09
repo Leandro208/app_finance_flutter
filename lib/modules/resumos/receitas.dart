@@ -1,28 +1,17 @@
 import 'package:app_finance_flutter/model/movimentacao.dart';
-import 'package:app_finance_flutter/model/tipo_movimentacao.dart';
 import 'package:app_finance_flutter/modules/components/timeline.dart';
 import 'package:app_finance_flutter/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class ReceitasResumo extends StatefulWidget {
-  const ReceitasResumo({super.key});
+  final List<Movimentacao> receitas;
+  const ReceitasResumo({super.key, required this.receitas});
   @override
   State<ReceitasResumo> createState() => _ReceitasResumoState();
 }
 
 class _ReceitasResumoState extends State<ReceitasResumo> {
-  final List<Movimentacao> _receitas = [
-    Movimentacao(
-        titulo: 'Internet',
-        valor: 129.02,
-        data: DateTime.now(),
-        tipo: TipoMovimentacao.RECEITA),
-    Movimentacao(
-        titulo: 'Internet',
-        valor: 129.02,
-        data: DateTime.now(),
-        tipo: TipoMovimentacao.RECEITA),
-  ];
+  
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +30,7 @@ class _ReceitasResumoState extends State<ReceitasResumo> {
                     fontFamily: AutofillHints.streetAddressLine1)),
           ),
           TimelineMovimentacao(
-            movimentacoes: _receitas,
+            movimentacoes: widget.receitas,
             cor: AppColors.receitaColorSecondary,
           )
         ],
