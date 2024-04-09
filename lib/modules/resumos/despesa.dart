@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:app_finance_flutter/model/movimentacao.dart';
 import 'package:app_finance_flutter/model/tipo_movimentacao.dart';
 import 'package:app_finance_flutter/modules/components/timeline.dart';
@@ -13,32 +15,32 @@ class DespesasResumo extends StatefulWidget {
 
 class _DespesasResumoState extends State<DespesasResumo> {
   final List<Movimentacao> _despesas = [
-    Movimentacao(
+    Movimentacao(id:Random().nextInt(9999).toString(),
         titulo: 'Internet',
         valor: 129.02,
         data: DateTime.now(),
         tipo: TipoMovimentacao.DESPESA),
-    Movimentacao(
+    Movimentacao(id:Random().nextInt(9999).toString(),
         titulo: 'Internet',
         valor: 129.02,
         data: DateTime.now(),
         tipo: TipoMovimentacao.DESPESA),
-    Movimentacao(
+    Movimentacao(id:Random().nextInt(9999).toString(),
         titulo: 'Internet',
         valor: 129.02,
         data: DateTime.now(),
         tipo: TipoMovimentacao.DESPESA),
-    Movimentacao(
+    Movimentacao(id:Random().nextInt(9999).toString(),
         titulo: 'Despesa Teste',
         valor: 528.12,
         data: DateTime.now(),
         tipo: TipoMovimentacao.DESPESA),
-    Movimentacao(
+    Movimentacao(id:Random().nextInt(9999).toString(),
         titulo: 'Despesa Teste',
         valor: 528.12,
         data: DateTime.now(),
         tipo: TipoMovimentacao.DESPESA),
-    Movimentacao(
+    Movimentacao(id:Random().nextInt(9999).toString(),
         titulo: 'Despesa Teste',
         valor: 528.12,
         data: DateTime.now(),

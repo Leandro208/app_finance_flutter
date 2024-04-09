@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:app_finance_flutter/model/movimentacao.dart';
 import 'package:app_finance_flutter/model/tipo_movimentacao.dart';
 import 'package:app_finance_flutter/modules/components/timeline.dart';
@@ -13,11 +15,13 @@ class ReceitasResumo extends StatefulWidget {
 class _ReceitasResumoState extends State<ReceitasResumo> {
   final List<Movimentacao> _receitas = [
     Movimentacao(
+        id: Random().nextInt(9999).toString(),
         titulo: 'Internet',
         valor: 129.02,
         data: DateTime.now(),
         tipo: TipoMovimentacao.RECEITA),
     Movimentacao(
+        id: Random().nextInt(9999).toString(),
         titulo: 'Internet',
         valor: 129.02,
         data: DateTime.now(),

@@ -1,8 +1,11 @@
+import 'dart:math';
+
 import 'package:app_finance_flutter/model/movimentacao.dart';
 import 'package:app_finance_flutter/model/tipo_movimentacao.dart';
 import 'package:app_finance_flutter/modules/components/lista_movimentacoes.dart';
 import 'package:app_finance_flutter/modules/home/adicionar.dart';
 import 'package:app_finance_flutter/utils/app_colors.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -13,43 +16,78 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<Movimentacao> movimentacoes = [
-    Movimentacao(
-        titulo: 'Venda',
-        valor: 528.12,
-        data: DateTime.now(),
-        tipo: TipoMovimentacao.RECEITA),
-    Movimentacao(
-        titulo: 'Internet',
-        valor: 129.02,
-        data: DateTime.now(),
-        tipo: TipoMovimentacao.DESPESA),
-    Movimentacao(
-        titulo: 'Internet',
-        valor: 129.02,
-        data: DateTime.now(),
-        tipo: TipoMovimentacao.DESPESA),
-    Movimentacao(
-        titulo: 'Venda',
-        valor: 528.12,
-        data: DateTime.now(),
-        tipo: TipoMovimentacao.RECEITA),
-    Movimentacao(
-        titulo: 'Internet',
-        valor: 129.02,
-        data: DateTime.now(),
-        tipo: TipoMovimentacao.DESPESA),
-    Movimentacao(
-        titulo: 'Despesa Teste',
-        valor: 528.12,
-        data: DateTime.now(),
-        tipo: TipoMovimentacao.DESPESA)
-  ];
+  late List<Movimentacao> movimentacoes;
+  double total = 0;
+  @override
+  void initState() {
+    movimentacoes = [
+      Movimentacao(
+          id: Random().nextInt(9999).toString(),
+          titulo: 'Venda',
+          valor: 528.12,
+          data: DateTime.now(),
+          tipo: TipoMovimentacao.RECEITA),
+      Movimentacao(
+          id: Random().nextInt(9999).toString(),
+          titulo: 'Internet',
+          valor: 129.02,
+          data: DateTime.now(),
+          tipo: TipoMovimentacao.DESPESA),
+      Movimentacao(
+          id: Random().nextInt(9999).toString(),
+          titulo: 'Internet',
+          valor: 129.02,
+          data: DateTime.now(),
+          tipo: TipoMovimentacao.DESPESA),
+      Movimentacao(
+          id: Random().nextInt(9999).toString(),
+          titulo: 'Venda',
+          valor: 528.12,
+          data: DateTime.now(),
+          tipo: TipoMovimentacao.RECEITA),
+      Movimentacao(
+          id: Random().nextInt(9999).toString(),
+          titulo: 'Internet',
+          valor: 129.02,
+          data: DateTime.now(),
+          tipo: TipoMovimentacao.DESPESA),
+      Movimentacao(
+          id: Random().nextInt(9999).toString(),
+          titulo: 'Despesa Teste',
+          valor: 528.12,
+          data: DateTime.now(),
+          tipo: TipoMovimentacao.DESPESA)
+    ];
+    for (var e in movimentacoes) {
+      total += e.valor;
+    }
+    super.initState();
+  }
+
   void adicionarMovimentacoes(Movimentacao movimentacao) => setState(() {
+        total = 0;
         movimentacoes.add(movimentacao);
+        for (var e in movimentacoes) {
+          total += e.valor;
+        }
       });
   void removerMovimentacoes(Movimentacao movimentacao) => setState(() {
+        total = 0;
         movimentacoes.remove(movimentacao);
+        for (var e in movimentacoes) {
+          total += e.valor;
+        }
+      });
+
+  void editarMovimentacao(Movimentacao movimentacao) => setState(() {
+        int indexMovimentacao = movimentacoes
+            .indexWhere((element) => element.id == movimentacao.id);
+        if (indexMovimentacao == -1) return;
+        movimentacoes[indexMovimentacao] = movimentacao;
+        total = 0;
+        for (var e in movimentacoes) {
+          total += e.valor;
+        }
       });
 
   @override
@@ -86,9 +124,9 @@ class _HomePageState extends State<HomePage> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              const Text(
-                                "R\$ 500,46",
-                                style: TextStyle(
+                              Text(
+                                "R\$ ${total.toStringAsFixed(2)}",
+                                style: const TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 30),
@@ -117,7 +155,9 @@ class _HomePageState extends State<HomePage> {
                                     MaterialPageRoute<void>(
                                       builder: (BuildContext context) =>
                                           AdicionarItem(
-                                              callback: adicionarMovimentacoes),
+                                        callback: adicionarMovimentacoes,
+                                        isEdit: false,
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -130,18 +170,22 @@ class _HomePageState extends State<HomePage> {
               ),
             ],
           ),
-          const Padding(
-            padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
+                const Text(
                   'Movimentações',
                   style: TextStyle(color: Colors.grey),
                 ),
-                Icon(
-                  Icons.sort,
-                  color: Colors.grey,
+                CupertinoButton(
+                  onPressed: () {},
+                  padding: EdgeInsets.zero,
+                  child: const Icon(
+                    Icons.sort,
+                    color: Colors.grey,
+                  ),
                 )
               ],
             ),
@@ -149,7 +193,8 @@ class _HomePageState extends State<HomePage> {
           Expanded(
             child: ListaMovimentacoes(
               movimentacoes: movimentacoes,
-              callback: removerMovimentacoes,
+              callbackRemover: removerMovimentacoes,
+              callbackEditar: editarMovimentacao,
             ),
           )
         ],

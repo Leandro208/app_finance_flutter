@@ -1,18 +1,21 @@
 import 'package:app_finance_flutter/model/movimentacao.dart';
 import 'package:app_finance_flutter/model/tipo_movimentacao.dart';
+import 'package:app_finance_flutter/modules/home/adicionar.dart';
 import 'package:app_finance_flutter/utils/app_colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class ListaMovimentacoes extends StatelessWidget {
-  final Function(Movimentacao) callback;
+  final Function(Movimentacao) callbackRemover;
+  final Function(Movimentacao) callbackEditar;
   final List<Movimentacao> movimentacoes;
 
   const ListaMovimentacoes({
     super.key,
     required this.movimentacoes,
-    required this.callback,
+    required this.callbackRemover,
+    required this.callbackEditar,
   });
 
   @override
@@ -24,11 +27,12 @@ class ListaMovimentacoes extends StatelessWidget {
         itemBuilder: (context, index) {
           final movimentacao = movimentacoes[index];
           return GestureDetector(
-            onTap: () async => await _showBottomSheet(context, movimentacao),
+            onTap: () async =>
+                await _showBottomSheet(context, movimentacao, index),
             child: Dismissible(
               key: Key(movimentacao.id),
               confirmDismiss: (direction) async =>
-                  await _showBottomSheet(context, movimentacao),
+                  await _showBottomSheet(context, movimentacao, index),
               background: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
@@ -65,7 +69,7 @@ class ListaMovimentacoes extends StatelessWidget {
   }
 
   Future _showBottomSheet(
-      BuildContext context, Movimentacao movimentacao) async {
+      BuildContext context, Movimentacao movimentacao, int index) async {
     await showModalBottomSheet(
       backgroundColor: AppColors.background,
       context: context,
@@ -127,7 +131,19 @@ class ListaMovimentacoes extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(
                         vertical: 10, horizontal: 20),
                     color: Colors.blueAccent,
-                    onPressed: () {
+                    onPressed: () async {
+                      await Navigator.push(
+                        context,
+                        MaterialPageRoute<void>(
+                          builder: (BuildContext context) => AdicionarItem(
+                            callback: callbackEditar,
+                            isEdit: true,
+                            movimentacaoEdit: movimentacao,
+                            index: index,
+                          ),
+                        ),
+                      );
+
                       // callback(movimentacao);
 
                       Navigator.pop(contextModal);
@@ -143,7 +159,7 @@ class ListaMovimentacoes extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(
                         vertical: 10, horizontal: 20),
                     onPressed: () {
-                      callback(movimentacao);
+                      callbackRemover(movimentacao);
 
                       Navigator.pop(contextModal);
                     },
