@@ -1,7 +1,4 @@
-import 'dart:math';
-
 import 'package:app_finance_flutter/model/movimentacao.dart';
-import 'package:app_finance_flutter/model/tipo_movimentacao.dart';
 import 'package:app_finance_flutter/modules/components/lista_movimentacoes.dart';
 import 'package:app_finance_flutter/modules/home/adicionar.dart';
 import 'package:app_finance_flutter/utils/app_colors.dart';
@@ -9,56 +6,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  final List<Movimentacao> movimentacoes;
+  const HomePage({super.key, required this.movimentacoes});
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  late List<Movimentacao> movimentacoes;
   double total = 0;
   @override
   void initState() {
-    movimentacoes = [
-      Movimentacao(
-          id: Random().nextInt(9999).toString(),
-          titulo: 'Venda',
-          valor: 528.12,
-          data: DateTime.now(),
-          tipo: TipoMovimentacao.RECEITA),
-      Movimentacao(
-          id: Random().nextInt(9999).toString(),
-          titulo: 'Internet',
-          valor: 129.02,
-          data: DateTime.now(),
-          tipo: TipoMovimentacao.DESPESA),
-      Movimentacao(
-          id: Random().nextInt(9999).toString(),
-          titulo: 'Internet',
-          valor: 129.02,
-          data: DateTime.now(),
-          tipo: TipoMovimentacao.DESPESA),
-      Movimentacao(
-          id: Random().nextInt(9999).toString(),
-          titulo: 'Venda',
-          valor: 528.12,
-          data: DateTime.now(),
-          tipo: TipoMovimentacao.RECEITA),
-      Movimentacao(
-          id: Random().nextInt(9999).toString(),
-          titulo: 'Internet',
-          valor: 129.02,
-          data: DateTime.now(),
-          tipo: TipoMovimentacao.DESPESA),
-      Movimentacao(
-          id: Random().nextInt(9999).toString(),
-          titulo: 'Despesa Teste',
-          valor: 528.12,
-          data: DateTime.now(),
-          tipo: TipoMovimentacao.DESPESA)
-    ];
-    for (var e in movimentacoes) {
+    for (var e in widget.movimentacoes) {
       total += e.valor;
     }
     super.initState();
@@ -66,26 +25,26 @@ class _HomePageState extends State<HomePage> {
 
   void adicionarMovimentacoes(Movimentacao movimentacao) => setState(() {
         total = 0;
-        movimentacoes.add(movimentacao);
-        for (var e in movimentacoes) {
+        widget.movimentacoes.add(movimentacao);
+        for (var e in widget.movimentacoes) {
           total += e.valor;
         }
       });
   void removerMovimentacoes(Movimentacao movimentacao) => setState(() {
         total = 0;
-        movimentacoes.remove(movimentacao);
-        for (var e in movimentacoes) {
+        widget.movimentacoes.remove(movimentacao);
+        for (var e in widget.movimentacoes) {
           total += e.valor;
         }
       });
 
   void editarMovimentacao(Movimentacao movimentacao) => setState(() {
-        int indexMovimentacao = movimentacoes
+        int indexMovimentacao = widget.movimentacoes
             .indexWhere((element) => element.id == movimentacao.id);
         if (indexMovimentacao == -1) return;
-        movimentacoes[indexMovimentacao] = movimentacao;
+        widget.movimentacoes[indexMovimentacao] = movimentacao;
         total = 0;
-        for (var e in movimentacoes) {
+        for (var e in widget.movimentacoes) {
           total += e.valor;
         }
       });
@@ -192,7 +151,7 @@ class _HomePageState extends State<HomePage> {
           ),
           Expanded(
             child: ListaMovimentacoes(
-              movimentacoes: movimentacoes,
+              movimentacoes: widget.movimentacoes,
               callbackRemover: removerMovimentacoes,
               callbackEditar: editarMovimentacao,
             ),
